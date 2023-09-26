@@ -17,10 +17,10 @@
     <h1 class="domiTit"><del>DO  MI </del> Nation </h1>
     <h2 class="fuentePrinc">Registrate como cliente completando los datos solicitados</h2>
     <br><br><br>
-    <form name="form3" action="register" method="post" >
+    <form action="registrarse" method="POST" >
         <h3 class="fuentePrinc">Datos Personales</h3><br>
-        <label class="fuenteMin" for="name">Nombre:</label> <input type="text" name="name" id="nombre">
-        <label class="fuenteMin" for="last-name">Apellido:</label> <input type="text" id="apellido" name="apellido">
+        <label class="fuenteMin" for="name">Nombre:</label> <input type="text" name="nomCliente" id="nombre">
+        <label class="fuenteMin" for="last-name">Apellido:</label> <input type="text" id="apellido" name="apeCliente">
         <label class="fuenteMin" for="nroDNI">DNI:</label> <input type="text" id="DNI" name="DNI">
         <label class="fuenteMin" for="celular">Celular:</label> <input type="text" id="cel" name="celular">
         <br><br>
