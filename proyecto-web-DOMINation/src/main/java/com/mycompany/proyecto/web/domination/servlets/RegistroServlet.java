@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.proyecto.web.domination;
+package com.mycompany.proyecto.web.domination.servlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -55,6 +55,7 @@ public class RegistroServlet extends HttpServlet {
         //Error 405 - Generado por el objeto super.doGet
 
         req.getRequestDispatcher("pages/reg-cliente.jsp").forward(req, resp);//redirige el servlet a el JSP del form.
+        //req.getRequestDispatcher("css/estiloReg.css").forward(req, resp); <-- no sirve.
     }
     
 }

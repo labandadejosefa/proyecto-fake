@@ -10,8 +10,9 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Inicia Sesión</title>
+        <link rel="stylesheet" href="css/estiloLog.css">
     </head>
-<link rel="stylesheet" href="../css/estiloLog.css">
+
 <body>
     <h1 class="domiTit"><del>DO  MI </del> Nation </h1>
     <h2 class="fuentePrinc centrarEnPag">Ingresar con tus datos</h2>

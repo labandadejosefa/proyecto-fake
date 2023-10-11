@@ -12,7 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Registrate como cliente</title>
     </head>
-<link rel="stylesheet" href="../css/estiloReg.css">
+<link rel="stylesheet" href="css/estiloReg.css">
 <body>    
     <h1 class="domiTit"><del>DO  MI </del> Nation </h1>
     <h2 class="fuentePrinc">Registrate como cliente completando los datos solicitados</h2>
