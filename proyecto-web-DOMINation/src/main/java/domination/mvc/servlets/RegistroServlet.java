@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,7 +21,11 @@ import java.util.List;
  */
 @WebServlet(name = "RegistroServlet", value = "/registrarse")
 public class RegistroServlet extends HttpServlet {
-    private List<Usuario> usuarios; 
+    private ArrayList<Usuario> usuarios; 
+
+    public RegistroServlet() {
+        usuarios = new ArrayList<>();
+    }
     
     public Usuario user(String nomUsuario, String nombre, String apellido, String email, 
             String password, String celular, Domicilio dom){
