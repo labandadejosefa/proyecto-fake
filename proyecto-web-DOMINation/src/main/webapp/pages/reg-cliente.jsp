@@ -8,17 +8,18 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="css/estiloReg.css">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Registrarse</title>
     </head>
-    <link rel="stylesheet" href="css/estiloReg.css">
+
     <body>   
         
         <div class="elcontainer">
             
             <div>
-                <img class="logo" src="../img/logo.png" alt="logo">
+                <img class="logo" src="img/logo.png" alt="logo">
                 <del class="eltitulo">DO MI</del><b class="eltitulo rojo"> Nation</b>
             </div><br>
     
