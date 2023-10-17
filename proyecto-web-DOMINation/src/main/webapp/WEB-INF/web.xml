@@ -8,4 +8,16 @@
             30
         </session-timeout>
     </session-config>
+    <servlet>
+        <servlet-name>registroServlet</servlet-name>
+        <servlet-class>domination.mvc.servlets.RegistroServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>registroServlet</servlet-name>
+        <url-pattern>/registrarse</url-pattern> 
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>registroServlet</servlet-name>
+        <url-pattern>/registrarse/felicitacion</url-pattern> 
+    </servlet-mapping>
 </web-app>
