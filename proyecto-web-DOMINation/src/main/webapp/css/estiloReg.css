@@ -18,6 +18,7 @@ body{
     align-items: center;
     justify-content: space-between;
     position: static;
+    margin: auto;
 }
 
 .fuenteMin{
@@ -58,7 +59,7 @@ body{
 }
 
 .eltitulo {
-    font-family: 'Bebas Neue', sans-serif;;
+    font-family: 'Bebas Neue', sans-serif;
     font-size: 40px;
     color: white;
     align-items: center;

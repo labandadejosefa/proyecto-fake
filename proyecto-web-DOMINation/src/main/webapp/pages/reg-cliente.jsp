@@ -17,7 +17,6 @@
     <body>   
         
         <div class="elcontainer">
-            
             <div>
                 <img class="logo" src="img/logo.png" alt="logo">
                 <del class="eltitulo">DO MI</del><b class="eltitulo rojo"> Nation</b>
