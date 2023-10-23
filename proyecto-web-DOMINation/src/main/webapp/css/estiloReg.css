@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bahiana&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bahiana&family=Bebas+Neue&family=Permanent+Marker&family=Tilt+Prism&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bahiana&family=Barlow+Condensed&family=Bebas+Neue&family=Permanent+Marker&family=Tilt+Prism&display=swap');
+
 
 *{
     box-sizing: border-box;
@@ -48,7 +50,7 @@ body{
     background-color: grey;
     border-style: double grey;
     border-radius: 2%;
-    width: 900px;
+    width: 1000px;
     height: auto;
     padding: 20px;
     position: relative;
@@ -96,4 +98,14 @@ img.logo {
 .centrar-contenido{
     align-items: center;
     justify-content: center;
+}
+
+.text-box-ajuste{/*ajuste de tamaño de caja de texto acorde al fondo del label*/
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    padding: 5px;
+    border-radius: 5px;
+    width: auto;
 }
