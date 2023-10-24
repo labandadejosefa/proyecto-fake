@@ -24,16 +24,19 @@ import java.util.List;
 /*@WebServlet(name = "RegistroServlet", value = "/registrarse")*/
 public class RegistroServlet extends HttpServlet {
     private List<Usuario> usuarios; 
+    private int elId;
 
     public RegistroServlet() {
         usuarios = new ArrayList<>();
+        elId=10;
     }
     
     public Usuario user(String nomUsuario, String nombre, String apellido, String email, 
             String password, String celular, Domicilio dom){
         Usuario u= null;
         if (nomUsuario != null && nombre != null && apellido != null && email != null && password != null && celular != null && dom != null) {
-            u = new UsuarioCliente(1,nomUsuario,nombre,apellido,email,password,celular,dom);
+            u = new UsuarioCliente(elId,nomUsuario,nombre,apellido,email,password,celular,dom);
+            elId++;
         }
         return u;
     }
@@ -56,7 +59,7 @@ public class RegistroServlet extends HttpServlet {
             
             pathInfo = pathInfo == null ? "" : pathInfo;
             
-            req.getRequestDispatcher("pages/reg-cliente.jsp").forward(req, resp);//redirige el servlet primero a el JSP del form de registro.
+            req.getRequestDispatcher("pages/registro.jsp").forward(req, resp);//redirige el servlet primero a el JSP del form de registro.
 
             HttpSession laSesion= req.getSession();
             laSesion.setAttribute("registroExitoso", true);
@@ -84,27 +87,30 @@ public class RegistroServlet extends HttpServlet {
             String username = req.getParameter("user");
             String password = req.getParameter("pass");
             Domicilio dom;
-
+            
             dom = domUser(calle,altura,partido,provincia,localidad);
+            Usuario elUsuario = user(username,nombre,apellido,email,password,celular,dom);
+            req.setAttribute("elUsuario", elUsuario);
             usuarios.add(user(username,nombre,apellido,email,password,celular,dom));
-
-            System.out.println(nombre);
-            System.out.println(apellido);
-            System.out.println(celular);
-            System.out.println(calle);
-            System.out.println(altura);
-            System.out.println(localidad);
-            System.out.println(partido);
-            System.out.println(provincia);
-            System.out.println(email);
-            System.out.println(username);
-            System.out.println(password);
-            resp.sendRedirect("pages/felicitacion.jsp");
+            
+//            System.out.println(nombre);
+//            System.out.println(apellido);
+//            System.out.println(celular);
+//            System.out.println(calle);
+//            System.out.println(altura);
+//            System.out.println(localidad);
+//            System.out.println(partido);
+//            System.out.println(provincia);
+//            System.out.println(email);
+//            System.out.println(username);
+//            System.out.println(password);
+            System.out.println(elUsuario.getNombre());
+            req.getRequestDispatcher("pages/felicitacion.jsp").forward(req, resp);
+            
         } catch (Exception ex){
-            resp.sendError(500);
+            resp.sendError(500,"no anda bien esto eh\n"+ ex.getMessage());
         }
         
     }
-
     
 }
