@@ -25,6 +25,10 @@ public abstract class Usuario {
         this.celular = celular;
         this.dom = dom;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
     
     public void setDomicilio(Domicilio elDom){
         dom = elDom;
@@ -40,7 +44,6 @@ public abstract class Usuario {
 
     public String getPassword() {
         return password;
-    }
-    
+    } 
     
 }
