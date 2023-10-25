@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package domination.mvc.model;
 
 /**
@@ -14,4 +11,19 @@ public class UsuarioCliente extends Usuario {
         super(id, nomUsuario, nombre, apellido, email, password, celular, dom);
     }
     
+    
+    public Reserva crearReserva(ObjetoReservable objeto, Fecha fecha, HoraTurno hora, int cantidadHoras){
+        Reserva reservaCreada = null;
+        //ACÁ DEBERÍA DELEGARSE LA TAREA A UNA CLASE GESTORA O ALGUIEN QUE PUEDA HACER TODAS LAS VERIFICACIONES DE DISPONIBILIDAD: q devuelva la reserva creada o null si no pudo
+        return reservaCreada;
+    }
+    
+    
+    public void modificarReserva(Reserva reserva){
+        //ACÁ DEBERÍA DELEGARSE LA TAREA A UNA CLASE GESTORA O ALGUIEN QUE PUEDA HACER TODAS LAS VERIFICACIONES. O DIRECTO A DAO?
+    }
+    
+    public void cancelarReserva(Reserva reserva){
+        //ACÁ DEBERÍA DELEGARSE LA TAREA A UNA CLASE GESTORA O ALGUIEN QUE PUEDA HACER TODAS LAS VERIFICACIONES DE DISPONIBILIDAD
+    }
 }

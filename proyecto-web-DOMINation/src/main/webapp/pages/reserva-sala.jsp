@@ -12,8 +12,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <%--<link rel="stylesheet" href="../css/reserva.css"> --%>
-        <link rel="stylesheet" href="<c:url value="/css/reserva.css"/>"> 
+        <%--<link rel="stylesheet" href="../css/estiloReserva.css"> --%>
+        <link rel="stylesheet" href="<c:url value="/css/estiloReserva.css"/>"> 
         <title>Reserva de sala</title>        
         <%--https://www.freecodecamp.org/espanol/news/como-construir-una-forma-de-registro-con-etiquetas-flotantes-y-transiciones-usando-solamente/ --%>
     </head>

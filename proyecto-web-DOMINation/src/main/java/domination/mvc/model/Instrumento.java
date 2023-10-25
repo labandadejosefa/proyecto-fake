@@ -1,18 +1,46 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package domination.mvc.model;
 
 /**
  *
  * @author giann
  */
-public class Instrumento implements Alquilable {
-    
+public class Instrumento implements ObjetoReservable {
+    private int id;
+    private String nombre;
+    private double precioHora;
+
+    public Instrumento(int id, String nombre, double precioHora) {
+        this.id = id;
+        this.nombre = nombre;
+        setPrecioHora(precioHora);
+    }
+     
+
     @Override
-    public void Alquilar() {
+    public int getId() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+//    @Override
+//    public boolean estaDisponible(Fecha fecha, HoraTurno hora) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
+
+    @Override
+    public void setPrecioHora(double precio) {        
+        UtilExceptions.checkPrecioValidoInstrumento(precio, "El precio por hora debe ser mayor o igual a ARS " + UtilExceptions.PRECIO_MIN_INSTRUMENTO);
+        this.precioHora = precio;    
+    }
+
+    @Override
+    public double getPrecioHora() {
+        return this.precioHora;
+    }
+        
+    
+    
+    
+
     
 }

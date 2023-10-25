@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
-   version="6.0">
+<web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <servlet-mapping>
+        <servlet-name>ReservaServlet</servlet-name>
+        <url-pattern>/reserva</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -12,12 +13,16 @@
         <servlet-name>registroServlet</servlet-name>
         <servlet-class>domination.mvc.servlets.RegistroServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReservaServlet</servlet-name>
+        <servlet-class>domination.mvc.servlets.ReservaSalaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>registroServlet</servlet-name>
-        <url-pattern>/registrarse</url-pattern> 
+        <url-pattern>/registrarse</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>registroServlet</servlet-name>
-        <url-pattern>/registrarse/felicitacion</url-pattern> 
+        <url-pattern>/registrarse/felicitacion</url-pattern>
     </servlet-mapping>
 </web-app>
