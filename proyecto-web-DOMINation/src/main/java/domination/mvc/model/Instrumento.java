@@ -19,14 +19,10 @@ public class Instrumento implements ObjetoReservable {
 
     @Override
     public int getId() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
-//    @Override
-//    public boolean estaDisponible(Fecha fecha, HoraTurno hora) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-
+    
     @Override
     public void setPrecioHora(double precio) {        
         UtilExceptions.checkPrecioValidoInstrumento(precio, "El precio por hora debe ser mayor o igual a ARS " + UtilExceptions.PRECIO_MIN_INSTRUMENTO);

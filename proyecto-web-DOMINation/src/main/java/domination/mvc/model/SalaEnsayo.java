@@ -30,12 +30,6 @@ public class SalaEnsayo implements ObjetoReservable {
         return this.id;
     }
 
-//    @Override
-//    public boolean estaDisponible(Fecha fecha, HoraTurno hora) {
-//        // ESTE MÉTODO DEBERÍA RESOLVERLO UNA CLASE GESTORA *******************************************
-//        return true; //RETURN HARDCODED
-//    }
-
     @Override
     public void setPrecioHora(double precio) {
         UtilExceptions.checkPrecioValidoSala(precio, "El precio por hora debe ser mayor o igual a ARS " + UtilExceptions.PRECIO_MIN_SALA);

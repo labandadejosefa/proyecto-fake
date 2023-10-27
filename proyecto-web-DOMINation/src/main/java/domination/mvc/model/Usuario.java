@@ -45,5 +45,12 @@ public abstract class Usuario {
     public String getPassword() {
         return password;
     } 
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "nomUsuario=" + nomUsuario + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + '}';
+    }
+    
+    
     
 }

@@ -2,7 +2,7 @@
 package domination.mvc.model;
 
 /**
- *
+ * @author karol
  * @author giann
  */
 public class Fecha {

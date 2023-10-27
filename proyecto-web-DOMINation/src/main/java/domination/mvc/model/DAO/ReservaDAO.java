@@ -24,6 +24,14 @@ public class ReservaDAO implements DAO<Reserva, Integer>{
     public void add(Reserva reserva) {
         UtilExceptions.checkObjetoValido(reserva, "La reserva a agregar, no pude ser nula");
         reservas.add(reserva);
+        //SEGURAMENTE ESTE MÉTODO DESAPAREZCA, AL AGREGAR LA LÓGICA PARA MANIPULACION VIA BDD
+    }
+    
+    
+    @Override
+    public void create(Reserva RESERVA) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        //ACÁ HAY QUE AGREGAR LA LÓGICA PARA LA MODIFICACIÓN VIA BDD. 
     }
 
     @Override
@@ -49,6 +57,7 @@ public class ReservaDAO implements DAO<Reserva, Integer>{
         Reserva reservaEncontrada = null;
         //ACÁ HAY QUE CAMBIAR POR LA LÓGICA PARA LA BÚSQUEDA POR ID, VIA BDD.         
         return reservaEncontrada;
-    }
+    }        
+    
     
 }
