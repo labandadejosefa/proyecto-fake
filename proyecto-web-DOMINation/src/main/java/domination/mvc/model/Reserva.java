@@ -18,25 +18,25 @@ public class Reserva {
     public static final int MAX_HORAS_RESERVA =  6; //por poner una cantidad
     public static final int MIN_HORAS_RESERVA =  1; 
     
-    
+    private int idReserva;
     private ObjetoReservable objeto; //SalaEnsayo, Instrumento, estadia en Praia da Pipa
     private UsuarioCliente usuario;
     private Fecha fecha;
     private HoraTurno hora;
     private int cantidadHoras;
     private double precioReserva;
-    private EstadoReserva estado; //este attr se lo re podríamos volar
+    //private EstadoReserva estado; //este attr se lo re podríamos volar
     private LocalDateTime fechaYHora;
     private Duration duracion;
     private LocalDateTime finReserva;
     
-    public Reserva(ObjetoReservable objeto, UsuarioCliente usuario, Fecha fecha, HoraTurno hora, int cantidadHoras, EstadoReserva estado) {
+    public Reserva(int idReserva, ObjetoReservable objeto, UsuarioCliente usuario, Fecha fecha, HoraTurno hora, int cantidadHoras) {
+        this.idReserva = idReserva;
         this.objeto = objeto;
         this.usuario = usuario;
         setFechaYHora(fecha,hora);
         setCantidadHoras(cantidadHoras);
-        setFinReserva(fechaYHora,cantidadHoras);
-        this.estado= estado;
+        setFinReserva(fechaYHora,cantidadHoras);        
         this.precioReserva= calculaPrecio(objeto, cantidadHoras);        
     }
     
@@ -78,7 +78,7 @@ public class Reserva {
     }
     
     
-    public double calculaPrecio(ObjetoReservable objeto, int cantHoras){
+    private double calculaPrecio(ObjetoReservable objeto, int cantHoras){
         return objeto.getPrecioHora()*cantHoras;
     }
     
@@ -87,8 +87,6 @@ public class Reserva {
         return usuario;
     }
         
-    //HARÍA FALTA METER TODOS LOS GETTERS...O CASI? para "consultar por", y/o hacer cuentas, desde otras clases
-
     public ObjetoReservable getObjeto() { //este, para que lo puedan "ver" las clases DAO y resolver si un objetoReservable estaDisponible()
         return objeto;
     }
@@ -100,6 +98,15 @@ public class Reserva {
     public LocalDateTime getFinReserva() {
         return finReserva;
     }
+
+    public int getCantidadHoras() {
+        return cantidadHoras;
+    }
+
+    public int getIdReserva() {
+        return idReserva;
+    }
+    
     
     
 }

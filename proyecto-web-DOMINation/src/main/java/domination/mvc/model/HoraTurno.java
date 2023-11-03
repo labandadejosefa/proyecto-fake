@@ -3,7 +3,7 @@ package domination.mvc.model;
 
 /**
  * Clase que muy posiblemente haya que modificar o eliminar. La validación de la combinación Fecha + Hora para poder reservar, debería hacerse
- * en lógica de negocio -capa de servicio-
+ * en lógica de negocio.
  * @author karol
  */
 public class HoraTurno {

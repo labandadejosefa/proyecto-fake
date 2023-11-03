@@ -39,20 +39,25 @@
                     <c:set var="now" value="<%= new java.util.Date() %>" />
                     <input type="date" id="fecha" name="fecha" min="${currentDate}">
                 </div>
+                <script>
+                    var today = new Date().toISOString().split('T')[0];
+                    document.getElementById('fecha').setAttribute('min', today);
+                </script>
                 <%-- Elección de horario --%>
                 <div class="inputContainer">
                     <label for="horario">Horario:</label>
                     <select id="horario" name="horario">
                         <option value="10:00">10:00</option>
                         <option value="11:00">11:00</option>
-                        <option value="11:00">12:00</option>
-                        <option value="11:00">14:00</option>
-                        <option value="11:00">15:00</option>
-                        <option value="11:00">16:00</option>
-                        <option value="11:00">17:00</option>
-                        <option value="11:00">18:00</option>
-                        <option value="11:00">19:00</option>
-                        <option value="11:00">20:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
                         <option value="21:00">21:00</option>
                         <option value="22:00">22:00</option>
                     </select>
@@ -72,6 +77,24 @@
                 </div>
             </form>  
         </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var horarioInput = document.getElementById("horario");
+                var now = new Date();
+                var horaActual = now.getHours();
+                horarioInput.min = horaActual + ":00";
+        </script>  
+        <%-- No funciona este script de inhabilitación de dias domingos "0" --%>
+        <script>
+                document.getElementById("fecha").addEventListener("change", function() {
+                    var selectedDate = new Date(this.value);
+                    if (selectedDate.getDay() === 0) { // 0 representa domingo
+                        alert("No se permiten reservas los domingos.");
+                        this.value = ""; // Limpia la fecha seleccionada
+                    }
+                });
+            });
+        </script>        
     </body>
 </html>
 

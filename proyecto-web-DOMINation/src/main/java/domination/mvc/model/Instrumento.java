@@ -5,36 +5,24 @@ package domination.mvc.model;
  *
  * @author giann
  */
-public class Instrumento implements ObjetoReservable {
-    private int id;
-    private String nombre;
-    private double precioHora;
+public class Instrumento extends ObjetoReservable {
 
-    public Instrumento(int id, String nombre, double precioHora) {
-        this.id = id;
-        this.nombre = nombre;
-        setPrecioHora(precioHora);
-    }
+    public static final double PRECIO_MIN_INSTRUMENTO = 4000;
      
-
-    @Override
-    public int getId() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public Instrumento(int id, String nombre, double precioHora) {
+        super(id, nombre, precioHora, PRECIO_MIN_INSTRUMENTO);        
     }
-
     
     @Override
-    public void setPrecioHora(double precio) {        
-        UtilExceptions.checkPrecioValidoInstrumento(precio, "El precio por hora debe ser mayor o igual a ARS " + UtilExceptions.PRECIO_MIN_INSTRUMENTO);
-        this.precioHora = precio;    
+    public String toString() {
+        return "Instrumento: " + super.getNombre() + "; precio/hora ARS: " + super.getPrecioHora();
     }
-
-    @Override
-    public double getPrecioHora() {
-        return this.precioHora;
-    }
-        
     
+    
+
+   
+    
+
     
     
 

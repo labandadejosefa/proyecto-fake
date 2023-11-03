@@ -33,11 +33,7 @@ public class InstrumentoDAO implements DAO<Instrumento, Integer>, IDisponibleDAO
         //ACÁ HAY QUE AGREGAR LA LÓGICA VERDADERA VIA BDD. 
     }
             
-    @Override
-    public void create(Instrumento entidad) {        
-        //ACÁ HAY QUE AGREGAR LA LÓGICA PARA LA CREACION VIA BDD. 
-    }
-
+    
     @Override
     public void update(Instrumento instrumento){
         UtilExceptions.checkObjetoValido(instrumento, "El instrumento a editar, no pude ser nulo");
@@ -45,8 +41,8 @@ public class InstrumentoDAO implements DAO<Instrumento, Integer>, IDisponibleDAO
     }
 
     @Override
-    public void delete(Integer id) {
-        UtilExceptions.checkNumeroPositivo(id, "El id del instrumento a eliminar no puede ser nulo o negativo");
+    public void delete(Integer idInstrumento) {
+        UtilExceptions.checkNumeroPositivo(idInstrumento, "El id del instrumento a eliminar no puede ser nulo o negativo");
         //ACÁ HAY QUE AGREGAR LA LA LÓGICA PARA LA ELIMINACIÓN VIA BDD. 
     }
 
@@ -57,7 +53,7 @@ public class InstrumentoDAO implements DAO<Instrumento, Integer>, IDisponibleDAO
     }
 
     @Override
-    public Instrumento getById(Integer id) {
+    public Instrumento getById(Integer idInstrumento) {
         return new Instrumento(100, "instru", 4500);
         //ACÁ HAY QUE CAMBIAR POR LA LÓGICA PARA LA BÚSQUEDA POR ID, VIA BDD.
     }

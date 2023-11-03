@@ -4,6 +4,10 @@ package domination.mvc.model.DAO;
 import domination.mvc.model.Reserva;
 import domination.mvc.model.SalaEnsayo;
 import domination.mvc.model.UtilExceptions;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,53 +33,83 @@ public class SalaEnsayoDAO implements DAO<SalaEnsayo, Integer>, IDisponibleDAO {
         
     @Override
     public void add(SalaEnsayo sala){
-        UtilExceptions.checkObjetoValido(sala, "La sala a agregar, no pude ser nula");
-        salas.add(sala);
-        contador++;
+        String query = "INSERT INTO sala (nombre, precioHora) VALUES (?, ?"; //VERIFICAR LOS CAMPOS QUE TIENE EN VERDAD LA TABLA!!!
+        try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement prepStatement = con.prepareStatement(query)){
+            prepStatement.setString(1, sala.getNombre());
+            prepStatement.setDouble(2, sala.getPrecioHora());
+            //prepStatement.setT
+            prepStatement.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
-
+    
     
     @Override
-    public void create(SalaEnsayo entidad) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        //ACÁ HAY QUE AGREGAR LA LÓGICA PARA LA CREACION VIA BDD. 
-    }
-                
-
-    @Override
     public void update(SalaEnsayo sala)  {
-        UtilExceptions.checkObjetoValido(sala, "La sala a editar, no pude ser nula");
-        //ACÁ HAY QUE AGREGAR LA LÓGICA PARA LA MODIFICACIÓN VIA BDD. 
+        String query = "UPDATE sala SET nombre = ?, precioHora = ? WHERE id = ? ";
+        try (Connection con= ConnectionPool.getInstance().getConnection(); PreparedStatement prepStatement = con.prepareStatement(query)){
+            prepStatement.setString(1, sala.getNombre());
+            prepStatement.setDouble(2, sala.getPrecioHora());
+            prepStatement.setInt(3, sala.getId());
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }    
     }
 
     @Override
-    public void delete(Integer id) {
-        UtilExceptions.checkNumeroPositivo(id, "El id de la sala a eliminar no puede ser nulo o negativo");
-        //ACÁ HAY QUE AGREGAR LA LA LÓGICA PARA LA ELIMINACIÓN VIA BDD. 
-    }
-
+    public void delete(Integer idSala) {
+        String query = "DELETE FROM sala WHERE id = ?"; 
+        try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement prepStatement = con.prepareStatement(query)){
+            prepStatement.setInt(1, idSala);
+            prepStatement.executeUpdate();            
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }        
+ 
     @Override
     public List<SalaEnsayo> getAll() {
-        return new ArrayList<>(this.salas);
-        //ACÁ HAY QUE AGREGAR LA LÓGICA PARA mostrar la lista VIA BDD. 
-    }
-
-    @Override
-    public SalaEnsayo getById(Integer id) {
-        UtilExceptions.checkNumeroPositivo(id, "El ID no puede ser negativo");
-        SalaEnsayo salaEncontrada = null;
-        int i =0;
-        
-        while (i<salas.size() && salas.get(i).getId() != id) {
-            i++;            
+        List<SalaEnsayo> salas = new ArrayList<>();
+        String query = "SELECT * FROM sala";
+        try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement prepStatement = con.prepareStatement(query); ResultSet resultSet = prepStatement.executeQuery()){
+            while (resultSet.next()) {
+                salas.add(rsRowToSalaEnsayo(resultSet));                
+            }
+            
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
-        if(i<salas.size()){
-            salaEncontrada = salas.get(i);
+        return salas;        
+    }
+    
+    private SalaEnsayo rsRowToSalaEnsayo(ResultSet rs) throws SQLException
+    {
+        return new SalaEnsayo(
+                rs.getInt("id"),
+                rs.getString("nombre"),
+                rs.getDouble("precioHora") //VERIFICAR Y/O AGREGAR ESTE ATRIBUTO EN LA TABLA DE SALA. ESTÁ EN LA CLASE SALAENSAYO! Y lo usa reserva xa hacer cuentas.                
+        );
+    }    
+   
+    @Override
+    public SalaEnsayo getById(Integer idSala) {
+        String query = "SELECT * FROM sala WHERE id = ?";        
+        SalaEnsayo salaEncontrada = null;
+        try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement prepStatement = con.prepareStatement(query)){
+            prepStatement.setInt(1, idSala);
+            try (ResultSet resultSet = prepStatement.executeQuery()){
+                if (resultSet.next()) {
+                    salaEncontrada = rsRowToSalaEnsayo(resultSet);
+                }                
+            }             
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }        
-        return salaEncontrada;
-        //ACÁ HAY QUE CAMBIAR POR LA LÓGICA PARA LA BÚSQUEDA POR ID, VIA BDD. 
+        return salaEncontrada;        
     }        
 
+    //******************************* TRADUCIR ESTE MÉTODO estaDisponible() a lógica de BDD ***************************************************
     @Override
     public boolean estaDisponible(Object obj, LocalDateTime fechaYHora, int cantidadHoras) {
         SalaEnsayo sala = (SalaEnsayo) obj; //downcasting -quiero ver a 'obj' como una instancia de SalaEnsayo
@@ -89,9 +123,16 @@ public class SalaEnsayoDAO implements DAO<SalaEnsayo, Integer>, IDisponibleDAO {
             estaDisp = fechaYHora.plus(duracionDeseada).isBefore(reservas.get(i).getFechaYHora()) || fechaYHora.isAfter(reservas.get(i).getFinReserva()); //esto daría el true
         }
         return estaDisp; 
-        //Así como está, SÓLO responde por el instante consultado. No muestra oferta horaria del objeto deseado
-        //ACÁ HAY QUE REEMPLAZAR POR LA LÓGICA DE BÚSQUEDA VIA BDD. 
+        //Así como está, SÓLO responde por el instante consultado. No muestra oferta horaria del objeto deseado        
         
+    }
+    
+    
+    public boolean isDisponible(LocalDateTime fechaYHora, int cantidadHoras){
+        boolean isDisponible = false;
+        
+        
+        return isDisponible;
     }
         
 }

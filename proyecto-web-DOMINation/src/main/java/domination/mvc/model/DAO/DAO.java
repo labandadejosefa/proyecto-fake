@@ -8,7 +8,6 @@ import java.util.List;
  * @author giann
  */
 public interface DAO<E, Z> {
-    public abstract void create(E entidad) throws Exception; //agregué este 
     public abstract void add(E entidad) throws Exception;
     public abstract void update(E entidad) throws Exception;
     public abstract void delete(Z id) throws Exception;
