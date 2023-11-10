@@ -116,7 +116,7 @@ public class SalaEnsayoDAO implements DAO<SalaEnsayo, Integer>, IDisponibleDAO {
         Duration duracionDeseada = Duration.ofHours(cantidadHoras);
         int i = 0;         
         boolean estaDisp = false;
-        while (i<reservas.size() && reservas.get(i).getObjeto() != sala) {            
+        while (i<reservas.size() && reservas.get(i).getObjetoReserva() != sala) {            
             i++;
         }
         if (i<reservas.size()) {            

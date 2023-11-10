@@ -19,25 +19,24 @@ public class Reserva {
     public static final int MIN_HORAS_RESERVA =  1; 
     
     private int idReserva;
-    private ObjetoReservable objeto; //SalaEnsayo, Instrumento, estadia en Praia da Pipa
+    private ObjetoReservable objetoReserva; //SalaEnsayo, Instrumento, estadia en Praia da Pipa
     private UsuarioCliente usuario;
     private Fecha fecha;
     private HoraTurno hora;
     private int cantidadHoras;
     private double precioReserva;
-    //private EstadoReserva estado; //este attr se lo re podríamos volar
     private LocalDateTime fechaYHora;
     private Duration duracion;
     private LocalDateTime finReserva;
     
-    public Reserva(int idReserva, ObjetoReservable objeto, UsuarioCliente usuario, Fecha fecha, HoraTurno hora, int cantidadHoras) {
+    public Reserva(int idReserva, ObjetoReservable objetoReserva, UsuarioCliente usuario, Fecha fecha, HoraTurno hora, int cantidadHoras) {
         this.idReserva = idReserva;
-        this.objeto = objeto;
+        this.objetoReserva = objetoReserva;
         this.usuario = usuario;
         setFechaYHora(fecha,hora);
         setCantidadHoras(cantidadHoras);
         setFinReserva(fechaYHora,cantidadHoras);        
-        this.precioReserva= calculaPrecio(objeto, cantidadHoras);        
+        this.precioReserva= calculaPrecio(objetoReserva, cantidadHoras);        
     }
     
     
@@ -87,8 +86,8 @@ public class Reserva {
         return usuario;
     }
         
-    public ObjetoReservable getObjeto() { //este, para que lo puedan "ver" las clases DAO y resolver si un objetoReservable estaDisponible()
-        return objeto;
+    public ObjetoReservable getObjetoReserva() { //este, para que lo puedan "ver" las clases DAO y resolver si un objetoReservable estaDisponible()
+        return objetoReserva;
     }
 
     public LocalDateTime getFechaYHora() { //este, para que lo puedan "ver" las clases DAO y resolver si un objetoReservable estaDisponible()

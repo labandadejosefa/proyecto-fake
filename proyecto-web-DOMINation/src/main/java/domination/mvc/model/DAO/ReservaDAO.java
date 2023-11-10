@@ -28,7 +28,7 @@ public class ReservaDAO implements DAO<Reserva, Integer>{
     public void add(Reserva reserva) {                
         String query = "INSERT INTO reserva (objeto, usuario, fechaHora, finReserva, horas) VALUES (?,?,?,?,?)";
         try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement ps = con.prepareStatement(query)){
-            ps.setObject(1, reserva.getObjeto()); //ver cómo se guardan en BDD (si por "objeto" o por nombre/id
+            ps.setObject(1, reserva.getObjetoReserva()); //ver cómo se guardan en BDD (si por "objeto" o por nombre/id
             ps.setObject(2, reserva.getUsuarioReserva()); //ver cómo se guardan en BDD (si por "objeto" o por nombre/id
             ps.setTimestamp(3, fechaHoraATimestamp(reserva.getFechaYHora()));
             ps.setTimestamp(4, fechaHoraATimestamp(reserva.getFinReserva()));
@@ -43,7 +43,7 @@ public class ReservaDAO implements DAO<Reserva, Integer>{
     public void update(Reserva reserva)  {
         String query = "UPDATE reserva SET objeto = ?, usuario = ?, fechaHora = ?, finReserva = ?, horas = ? WHERE id = ?";
         try (Connection con = ConnectionPool.getInstance().getConnection(); PreparedStatement ps = con.prepareStatement(query)){
-            ps.setObject(1, reserva.getObjeto()); //ver cómo se guardan en BDD (si por "objeto" o por nombre/id
+            ps.setObject(1, reserva.getObjetoReserva()); //ver cómo se guardan en BDD (si por "objeto" o por nombre/id
             ps.setObject(2, reserva.getUsuarioReserva()); //ver cómo se guardan en BDD (si por "objeto" o por nombre/id
             ps.setTimestamp(3, fechaHoraATimestamp(reserva.getFechaYHora()));
             ps.setTimestamp(4, fechaHoraATimestamp(reserva.getFinReserva()));

@@ -64,7 +64,7 @@ public class InstrumentoDAO implements DAO<Instrumento, Integer>, IDisponibleDAO
         Duration duracionDeseada = Duration.ofHours(cantidadHoras);
         int i = 0;
         boolean estaDisp = false;
-        while (i<reservas.size() && reservas.get(i).getObjeto()!=instrumento) {            
+        while (i<reservas.size() && reservas.get(i).getObjetoReserva()!=instrumento) {            
             i++;
         }
         if (i<reservas.size()) {
