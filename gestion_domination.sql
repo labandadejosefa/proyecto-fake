@@ -25,12 +25,11 @@ DROP TABLE IF EXISTS `domicilio`;
 CREATE TABLE `domicilio` (
   `id_domicilio` int(11) NOT NULL AUTO_INCREMENT,
   `calle` varchar(45) NOT NULL,
-  `altura` varchar(45) NOT NULL,
+  `altura` varchar(10) NOT NULL,
   `localidad` varchar(45) NOT NULL,
-  `cpostal` varchar(20) NOT NULL,
-  PRIMARY KEY (`id_domicilio`),
-  UNIQUE KEY `id_UNIQUE` (`id_domicilio`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `cpostal` varchar(10) NOT NULL,
+  PRIMARY KEY (`id_domicilio`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +38,7 @@ CREATE TABLE `domicilio` (
 
 LOCK TABLES `domicilio` WRITE;
 /*!40000 ALTER TABLE `domicilio` DISABLE KEYS */;
-INSERT INTO `domicilio` VALUES (1,'Av Belgrano','520','CABA','1064'),(2,'Chile','740','CABA','1065');
+INSERT INTO `domicilio` VALUES (1,'Perú','572','CABA','1068'),(3,'Ayacucho','2250','Gral. San Martín','1650'),(4,'Diagonal 78','541','La Plata','1900'),(6,'Av. Segurola','4310','CABA','1419');
 /*!40000 ALTER TABLE `domicilio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,17 +51,17 @@ DROP TABLE IF EXISTS `objetoReservable`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `objetoReservable` (
   `id_objeto` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre_objeto` varchar(45) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
   `precio_hora` double NOT NULL,
-  `precio_min` double NOT NULL,
-  `tipo` varchar(45) NOT NULL,
+  `tipo_objeto` varchar(45) NOT NULL,
   `sede_id` int(11) NOT NULL,
   PRIMARY KEY (`id_objeto`),
-  KEY `id_sede_idx` (`sede_id`),
+  KEY `sede_id_idx` (`sede_id`),
   CONSTRAINT `sede_id` FOREIGN KEY (`sede_id`) REFERENCES `sede` (`id_sede`) ON UPDATE CASCADE,
-  CONSTRAINT `CONSTRAINT_1` CHECK (`tipo` in ('SalaEnsayo','Instrumento')),
-  CONSTRAINT `CONSTRAINT_2` CHECK (`tipo` in ('SalaEnsayo','Instrumento'))
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `CONSTRAINT_1` CHECK (`tipo_objeto` in ('SalaEnsayo','Instrumento')),
+  CONSTRAINT `CONSTRAINT_2` CHECK (`tipo_objeto` in ('SalaEnsayo','Instrumento')),
+  CONSTRAINT `CONSTRAINT_3` CHECK (`tipo_objeto` in ('SalaEnsayo','Instrumento'))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +70,6 @@ CREATE TABLE `objetoReservable` (
 
 LOCK TABLES `objetoReservable` WRITE;
 /*!40000 ALTER TABLE `objetoReservable` DISABLE KEYS */;
-INSERT INTO `objetoReservable` VALUES (1,'Contrabajo Segovia 3/4',3500,2000,'Instrumento',1),(2,'Sala A',4500,3500,'SalaEnsayo',1);
 /*!40000 ALTER TABLE `objetoReservable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,11 +88,11 @@ CREATE TABLE `reserva` (
   `duracion_hs` int(10) unsigned NOT NULL,
   `precio_reserva` double NOT NULL,
   PRIMARY KEY (`id_reserva`),
-  KEY `id_reservable_idx` (`objeto_id`),
-  KEY `id_usuario` (`usuario_id`),
-  CONSTRAINT `id_objeto` FOREIGN KEY (`objeto_id`) REFERENCES `objetoReservable` (`id_objeto`) ON UPDATE CASCADE,
-  CONSTRAINT `id_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `usuario_id_idx` (`usuario_id`),
+  KEY `objeto_id_idx` (`objeto_id`),
+  CONSTRAINT `objeto_id` FOREIGN KEY (`objeto_id`) REFERENCES `objetoReservable` (`id_objeto`) ON UPDATE CASCADE,
+  CONSTRAINT `usuario_id` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,32 +101,7 @@ CREATE TABLE `reserva` (
 
 LOCK TABLES `reserva` WRITE;
 /*!40000 ALTER TABLE `reserva` DISABLE KEYS */;
-INSERT INTO `reserva` VALUES (1,2,2,'2023-11-10 06:06:34',1,4500),(2,1,2,'2023-11-10 13:30:00',2,9000);
 /*!40000 ALTER TABLE `reserva` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `rol`
---
-
-DROP TABLE IF EXISTS `rol`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rol` (
-  `id_rol` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre_rol` varchar(30) NOT NULL,
-  PRIMARY KEY (`id_rol`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `rol`
---
-
-LOCK TABLES `rol` WRITE;
-/*!40000 ALTER TABLE `rol` DISABLE KEYS */;
-INSERT INTO `rol` VALUES (1,'Administrador'),(2,'Prestador'),(3,'Cliente');
-/*!40000 ALTER TABLE `rol` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -140,15 +113,15 @@ DROP TABLE IF EXISTS `sede`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sede` (
   `id_sede` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre_sede` varchar(45) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
   `domicilio_id` int(11) NOT NULL,
-  `usuario_id` int(11) NOT NULL,
+  `usuario_sede_id` int(11) NOT NULL,
   PRIMARY KEY (`id_sede`),
-  KEY `domicilio_id` (`domicilio_id`),
-  KEY `usuario_id` (`usuario_id`),
+  KEY `usuario_sede_id_idx` (`usuario_sede_id`),
+  KEY `domicilio_id_idx` (`domicilio_id`),
   CONSTRAINT `domicilio_id` FOREIGN KEY (`domicilio_id`) REFERENCES `domicilio` (`id_domicilio`) ON UPDATE CASCADE,
-  CONSTRAINT `usuario_id` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `usuario_sede_id` FOREIGN KEY (`usuario_sede_id`) REFERENCES `usuario` (`id_usuario`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,7 +130,7 @@ CREATE TABLE `sede` (
 
 LOCK TABLES `sede` WRITE;
 /*!40000 ALTER TABLE `sede` DISABLE KEYS */;
-INSERT INTO `sede` VALUES (1,'Sounds',1,3);
+INSERT INTO `sede` VALUES (1,'CrackSM',3,2),(2,'Descamisados LP',4,4);
 /*!40000 ALTER TABLE `sede` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,12 +148,13 @@ CREATE TABLE `usuario` (
   `email_usuario` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `tel` varchar(20) NOT NULL,
-  `rol_id` int(11) NOT NULL,
+  `rol_usuario` varchar(20) NOT NULL,
   PRIMARY KEY (`id_usuario`),
-  UNIQUE KEY `email_UNIQUE` (`email_usuario`),
-  KEY `_idx` (`rol_id`),
-  CONSTRAINT `rol_id` FOREIGN KEY (`rol_id`) REFERENCES `rol` (`id_rol`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  UNIQUE KEY `email_usuario_UNIQUE` (`email_usuario`),
+  CONSTRAINT `CONSTRAINT_1` CHECK (`rol_usuario` in ('admin','prestador','cliente')),
+  CONSTRAINT `CONSTRAINT_2` CHECK (`rol_usuario` in ('admin','prestador','cliente')),
+  CONSTRAINT `CONSTRAINT_3` CHECK (`rol_usuario` in ('admin','prestador','cliente'))
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,7 +163,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Pepin','peters','lalalala','55555','14521',2),(2,'hola','chau','ooooo','563214','820',1),(3,'Eddie','Vedder','eddie@gmail.com','pjam2023','5555',2);
+INSERT INTO `usuario` VALUES (1,'Marta','Minujin','martita@gmail.com','seniamarta123','1185720009','cliente'),(2,'Patricio','Estrella','patrick99@gmail.com','fondobikini777','22182463','prestador'),(3,'David','Grohl','davefighter@gmail.com','learningtofly','117100634','cliente'),(4,'Eva','Duarte','evitacapitana@gmail.com','seremillones1952','2358638710','prestador'),(5,'Carol','Pérez','perekarolina@gmail.com','aguantetodo','1178787878','admin');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -202,4 +176,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-10  4:44:21
+-- Dump completed on 2023-11-16  5:56:20
