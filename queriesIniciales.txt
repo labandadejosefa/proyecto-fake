@@ -1,0 +1,36 @@
+ALTER table objetoReservable ADD CHECK (tipo_objeto IN ('SalaEnsayo', 'Instrumento'));
+ALTER table usuario ADD CHECK (rol_usuario IN ('admin', 'prestador', 'cliente'));
+
+INSERT INTO domicilio (calle, altura, localidad, cpostal) VALUES ('Perú', '572', 'CABA', '1068');
+INSERT INTO domicilio (calle, altura, localidad, cpostal) VALUES ('Av. Segurola', '4310', 'CABA', '1419');
+INSERT INTO domicilio (calle, altura, localidad, cpostal) VALUES ('Ayacucho', '2250', 'Gral. San Martín', '1650');
+INSERT INTO domicilio (calle, altura, localidad, cpostal) VALUES ('Diagonal 78', '541', 'La Plata', '1900');
+INSERT INTO usuario (nombre, apellido, email_usuario, password, tel, rol_usuario) 
+VALUES ('Marta', 'Minujin', 'martita@gmail.com', 'seniamarta123', '1185720009', 'cliente');
+INSERT INTO usuario (nombre, apellido, email_usuario, password, tel, rol_usuario) 
+VALUES ('David', 'Grohl', 'davefighter@gmail.com', 'learningtofly', '117100634', 'cliente');
+INSERT INTO usuario (nombre, apellido, email_usuario, password, tel, rol_usuario) 
+VALUES ('Patricio', 'Estrella', 'patrick99@gmail.com', 'fondobikini777', '22182463', 'prestador');
+INSERT INTO usuario (nombre, apellido, email_usuario, password, tel, rol_usuario) 
+VALUES ('Eva', 'Duarte', 'evitacapitana@gmail.com', 'seremillones1952', '2358638710', 'prestador');
+INSERT INTO sede (nombre, domicilio_id, usuario_sede_id) 
+VALUES ('CrackSM', 3, 2);
+INSERT INTO sede (nombre, domicilio_id, usuario_sede_id) 
+VALUES ('Descamisados LP', 4, 4);
+
+
+**************************************************************
+**esto de acá abajo, muestra una row con los checks que puse para la tabla usuario: admin, prestador, cliente)
+SELECT
+  CONSTRAINT_NAME,
+  CHECK_CLAUSE
+FROM
+  information_schema.check_constraints
+WHERE
+  constraint_schema = 'gestion_domination'
+  AND table_name = 'usuario';
+
+****************************************************
+**cambiando los valores, puedo ver una row con los checks que puse para la tabla objetoReservable: SalaEnsayo, Instrumento)
+****************************************************
+
